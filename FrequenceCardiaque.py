@@ -3,8 +3,14 @@
 #import bouton
 #Import Buzzer
 #Import EcranLCD
+import RPi.GPIO as GPIO
+import time
 
-def mesurerFC(pouls):
+# declare les numero de port
+Frequence = 12
+GPIO.setup(Frequence,GPIO.IN)
+
+def mesurerFC():
 
 def rappelFC():
 

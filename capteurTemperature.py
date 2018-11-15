@@ -20,7 +20,7 @@ def  initialiserH(pin):
   white = 1   # The White colored sensor.
 
 def rappelH():
-  #ecrireMessage("Rappel : prendre FC !")      #utilisation de la fonction depuis lcd
+  #ecrireMessage("Rappel : Hydratez-vous !")      #utilisation de la fonction depuis lcd
   #buzzer()     #utilisation de la fonction depuis buzzer
   #clignoterLED()      #utilisation de la fonction depuis led
   #time.sleep(10)

@@ -9,7 +9,8 @@ def initialiserBuzzer(pin)
   buzzer = Buzzer(pin)
 
 #Fonction qui acive le buzzer avec une intensité précise
-def buzzer(intensite):
+#def buzzer(intensite):
+def buzzer():
   while True:
     GPIO.output(buzzer,GPIO.HIGH)
     sleep(1)

@@ -44,7 +44,7 @@ def mesurerH():
 def arretH
 
 def alerteProcheH():
-  #msg="ALERTE ! Il semblerait que Mr ou MMe X rencontre des difficultés ..."
+  #msg="ALERTE ! Il semblerait que Mr ou MMe X rencontre des difficultés au niveau de la chaleur et de l'hydratation..."
   #if (temp >= 25):
     #alerterProche(msg)
   

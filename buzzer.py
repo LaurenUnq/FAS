@@ -2,13 +2,14 @@
 from gpiozero import Buzzer
 from time import sleep
 
-#s'il est connecté au port 17
-GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
-buzzer = Buzzer(17)
+#initialiser le buzzer
+def initialiserBuzzer(pin)
+  GPIO.setwarnings(False)
+  GPIO.setmode(GPIO.BCM)
+  buzzer = Buzzer(pin)
 
 #Fonction qui acive le buzzer avec une intensité précise
-def buzzer(intensite):)
+def buzzer(intensite):
   while True:
     GPIO.output(buzzer,GPIO.HIGH)
     sleep(1)

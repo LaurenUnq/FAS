@@ -1,10 +1,12 @@
 #ajouter les imports nécesssaires
 import RPi.GPIO as GPIO
 import time
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(21, GPIO.OUT)
 
-#broche21
+#Initialiser  une LED
+def initialiserLED(pin): #pour une LED branchée au pin pin  //// Soit le pin en param soit le pin en global,soit on laisse 21 direct
+  GPI.setmode(GPIO.BCM)
+  GPIO.setup(pin, GPIO.OUT)
+  
 #allumer une LED
 def allumerLED():
   GPIO.output(21, GPIO.HIGH)
@@ -12,11 +14,11 @@ def allumerLED():
 #faire clignoter une LED
 def clignoterLED():
   while True :
-    GPIO.output(25, GPIO.HIGH)
+    GPIO.output(21, GPIO.HIGH)
     time.sleep(1) 
-    GPIO.output(25, GPIO.LOW) 
+    GPIO.output(21, GPIO.LOW) 
     time.sleep(1)
 
 #eteindre la LED
 def eteindreLED():
-    GPIO.output(25 GPIO.LOW)
+    GPIO.output(21 GPIO.LOW)

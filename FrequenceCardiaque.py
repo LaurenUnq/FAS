@@ -6,16 +6,17 @@
 import RPi.GPIO as GPIO
 import time
 
-# declare les numero de port
-Frequence = 12
-GPIO.setup(Frequence,GPIO.IN)
+# Initialiser
+def initialiserFC(pin):
+  GPIO.setup(pin,GPIO.IN)
 
 def mesurerFC():
 
 def rappelFC():
 
+#envoyer un mail au proche
 def alerteProcheFC():
 
-def alerterSecoursFC():
+#def alerterSecoursFC():
 
 def sauvegarderFC(): #Mettre dans la bd

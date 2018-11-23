@@ -4,49 +4,46 @@
 #import led
 #Import bouton
 #Import alerter
-Import time
+import time
 import grovepi
 import math
+import lcd
 
-# Connect the Grove Temperature & Humidity Sensor Pro to digital port D4
-# This example uses the blue colored sensor.
-# SIG,NC,VCC,GND
-
-def  initialiserH(pin):
-  sensor = pin # The Sensor goes on digital port "pin".
-  # temp_humidity_sensor_type
-  # Grove Base Kit comes with the blue sensor.
-  blue = 0    # The Blue colored sensor.      #N'est ce pas l'inverse pour le 0 ou 1 ??
-  white = 1   # The White colored sensor.
+SENSOR = 4 
+BLUE = 0    # The Blue colored sensor.     
 
 def rappelH():
+	lcd.ecrireMessage("Hydratez-vous et appuyer sur le bouton bleu!")
   #ecrireMessage("Rappel : Hydratez-vous !")      #utilisation de la fonction depuis lcd
   #buzzer()     #utilisation de la fonction depuis buzzer
   #clignoterLED()      #utilisation de la fonction depuis led
-  #time.sleep(10)
+  #time.sleep(5)
   #clearEcran()      #utilisation de la fonction depuis lcd
   #arretBuzzer()     #utilisation de la fonction depuis buzzer
   
-#def mesurerH(temp):
 def mesurerH():
+  t=0
   while True:
     try:
-        # This example uses the blue colored sensor.
-        # The first parameter is the port, the second parameter is the type of sensor.
-        [temp,humidity] = grovepi.dht(sensor,blue)  
-        if math.isnan(temp) == False and math.isnan(humidity) == False:
-            print("temp = %.02f C humidity =%.02f%%"%(temp, humidity))
-            #ecrireMessage("temp = %.02f C humidity =%.02f%%"%(temp, humidity))     #/// Via lcd
-
+    	ta = time.clock()
+    	print("ici")
+    	print(ta)
+        [temp,humidity] = grovepi.dht(SENSOR,BLUE)
+        if temp<=25 and t==0 :
+        	t = ta
+        if temp>25:
+        	t = 0
+        if ta > t + 60:
+        	rappelH()
+        	t=t+5
+        time.sleep(20)
     except IOError:
-        print ("Error")
+        print ("Erreur lors de la mesure")
 
-def arretH
 
-def alerteProcheH():
-  #msg="ALERTE ! Il semblerait que Mr ou MMe X rencontre des difficultés au niveau de la chaleur et de l'hydratation..."
+#def alerteProcheH():
   #if (temp >= 25):
     #alerterProche(msg)
   
 #def alerterSecoursH():
-
+mesurerH()

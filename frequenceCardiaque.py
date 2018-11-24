@@ -13,7 +13,7 @@ def initialiserFC(pin):
 
 #Le capteur renvoie0 quand il sent pas de batement, et 1 quand il y en a
 def mesurerFC(pin,timeInt): #pin est le pin sur lequel est le capteur, time et le temps pendant lequel on prend la frequence (ex:20sec)
-	pinMode(pin,"INPUT") #plus le temps time est grand plus ce sera précis
+	pinMode(pin,"INPUT") #plus le temps time est grand plus ce sera precis
 	current = time.time()
 	prec = 0
 	count = 0
@@ -28,7 +28,6 @@ def mesurerFC(pin,timeInt): #pin est le pin sur lequel est le capteur, time et l
 
 	btm = count * (60/timeInt)
 	print(btm)
-
 	return btm
 
 #def rappelFC():

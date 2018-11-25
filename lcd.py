@@ -9,6 +9,8 @@ class Lcd(Thread):
 		Thread.__init__(self)
 		self.message = message
 		self.duree = duree
+		self.running = True
+
 		self.bus = smbus.SMBus(1)
 		self.DISPLAY_RGB_ADDR = 0x62
 		self.DISPLAY_TEXT_ADDR = 0x3e
@@ -36,7 +38,7 @@ class Lcd(Thread):
 		self.clearEcran()
 		lg = len(texte)
 		i = 0
-		while i < lg:
+		while i < lg and self.running == True:
 			c = texte[i]
 			self.bus.write_byte_data(self.DISPLAY_TEXT_ADDR,0x40,ord(c))
 			i = i+1
@@ -46,7 +48,7 @@ class Lcd(Thread):
 		t = time.time()
 		c = 15
 		message = []
-		while time.time() < t + duree:
+		while time.time() < t + duree and self.running == True:
 			if c > 0:
 				for i in range(c):
 					message.append(" ")

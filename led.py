@@ -9,6 +9,7 @@ class Led(Thread):
 		self.led = 7
 		self.tempsC = tempsC
 		self.vitC = vitC
+		self.running = True
 		pinMode(self.led,"OUTPUT")
 		time.sleep(1)
 
@@ -24,7 +25,7 @@ class Led(Thread):
 
 	def run(self):
 		tf = time.time()
-	  	while time.time()< tf+self.tempsC :
+	  	while time.time()< tf+self.tempsC and self.running == True:
 	  		self.allumerLED(self.vitC)
 	  		self.eteindreLED(self.vitC)
 

@@ -13,6 +13,7 @@ import math
 import lcd
 import led
 import message
+import bouton
 
 SENSOR = 4 
 BLUE = 0    # The Blue colored sensor.     
@@ -20,16 +21,29 @@ BLUE = 0    # The Blue colored sensor.
 class Rappel(Thread):
 	def __init__(self):
 		Thread.__init__(self)
+		self.ret = False
 
 	def run(self):
 		ecran = lcd.Lcd("Hydratez-vous et appuyer sur le bouton bleu!",60)
 		ledr = led.Led(60,0.5)
+		bt1 = bouton.Button1(60)
+		bt1.start()
 		ecran.start()
 		ledr.start()
+		self.ret = bt1.join()
+		if self.ret == True:
+			ecran.stop()
+			ledr.stop()
 		ecran.join()
 		ledr.join()
   		#buzzer()     #utilisation de la fonction depuis buzzer
   		#arretBuzzer()     #utilisation de la fonction depuis buzzer
+
+  	def join(self):
+  		if self.ret == True:
+  			return 0
+  		else :
+  			return 1
   
 
 def mesurerH():
@@ -48,11 +62,12 @@ def mesurerH():
 	        		cpt = cpt + 1
 	        		if cpt == 5 :
 	        			r = Rappel()
-	        			m = message.MailProches("Ce message vous est envoyé car votre proche n'a pas confirmé son hydration")
-					r.start()
-					m.start()
-					r.join()
-					m.join()
+						r.start()
+						r.join()
+	        			if r == False:
+	        				m = message.MailProches("Ce message vous est envoyé car votre proche n'a pas confirmé son hydration")
+							m.start()
+							m.join()
 
 
 	        		t=t+5
@@ -68,3 +83,6 @@ def mesurerH():
 #def alerterSecoursH():
 
 
+t = Rappel()
+t.start()
+t.join()

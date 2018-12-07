@@ -3,7 +3,7 @@ Documentation:
 Capteur de frequence cardiaque: D2
 Bouton 1 : port D3
 Capteur de temperature: port D4
-Buzzer: port D15 (A1 = D15)
+Buzzer: port D5
 Bouton 2: port D6
 LED : port D7
 Ecran LCD: I2C1

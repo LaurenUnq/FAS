@@ -7,9 +7,44 @@ import RPi.GPIO as GPIO
 from grovepi import *
 import time
 
+SENSOR = 4 
+BLUE = 0    # The Blue colored sensor. 
+
 # Initialiser
 def initialiserFC(pin):
-  GPIO.setup(pin,GPIO.IN)
+  GPIO.setup(pin,GPIO.IN)    
+
+class RappelFC(Thread):
+	def __init__(self):
+		Thread.__init__(self)
+		self.ret = False
+
+	def run(self):
+		buzzer = buzzer.Buzzer(10,0) #on modifiera le 0 plus tard
+		ecran = lcd.Lcd("C'est l'heure de prendre votre fréquence cardiaque !",60)
+		ledr = led.Led(60,0.5)
+		bt1 = bouton.Button1(60)
+		bt1.start()
+		buzzer.start()
+		ecran.start()
+		ledr.start()
+		self.ret = bt1.join()
+		if self.ret == True:
+			ecran.stop()
+			ledr.stop()
+			buzzer.stop()
+		ecran.join()
+		ledr.join()
+		buzzer.join()
+  		#buzzer()     #utilisation de la fonction depuis buzzer
+  		#arretBuzzer()     #utilisation de la fonction depuis buzzer
+
+  	def join(self):
+  		if self.ret == True:
+  			return 0
+  		else :
+  			return 1
+
 
 #Le capteur renvoie0 quand il sent pas de batement, et 1 quand il y en a
 def mesurerFC(pin,timeInt): #pin est le pin sur lequel est le capteur, time et le temps pendant lequel on prend la frequence (ex:20sec)

@@ -88,6 +88,6 @@ def mesurerH():
 #def alerterSecoursH():
 
 
-t = Rappel()
-t.start()
-t.join()
+#t = Rappel()
+#t.start()
+#t.join()

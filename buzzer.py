@@ -8,7 +8,7 @@ class Buzzer(Thread):
 
   def __init__(self, tempsB, intensite):
     Thread.__init__(self)   
-    self.buzzer = 15
+    self.buzzer = 5
     self.tempsB = tempsB
     self.intensite = intensite
     self.running =  True

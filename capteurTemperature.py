@@ -14,6 +14,7 @@ import lcd
 import led
 import message
 import bouton
+import buzzer
 
 SENSOR = 4 
 BLUE = 0    # The Blue colored sensor.     
@@ -24,18 +25,22 @@ class Rappel(Thread):
 		self.ret = False
 
 	def run(self):
+		buzzer = buzzer.Buzzer(10,0) #on modifiera le 0 plus tard
 		ecran = lcd.Lcd("Hydratez-vous et appuyer sur le bouton bleu!",60)
 		ledr = led.Led(60,0.5)
 		bt1 = bouton.Button1(60)
 		bt1.start()
+		buzzer.start()
 		ecran.start()
 		ledr.start()
 		self.ret = bt1.join()
 		if self.ret == True:
 			ecran.stop()
 			ledr.stop()
+			buzzer.stop()
 		ecran.join()
 		ledr.join()
+		buzzer.join()
   		#buzzer()     #utilisation de la fonction depuis buzzer
   		#arretBuzzer()     #utilisation de la fonction depuis buzzer
 

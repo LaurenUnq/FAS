@@ -3,6 +3,8 @@
 #import bouton
 #Import Buzzer
 #Import EcranLCD
+import sys
+from threading import Thread
 import RPi.GPIO as GPIO
 from grovepi import *
 import time
@@ -21,7 +23,7 @@ class RappelFC(Thread):
 
 	def run(self):
 		buzzer = buzzer.Buzzer(10,0) #on modifiera le 0 plus tard
-		ecran = lcd.Lcd("C'est l'heure de prendre votre fréquence cardiaque !",60)
+		ecran = lcd.Lcd("C est l heure de prendre votre frequence cardiaque !",60)
 		ledr = led.Led(60,0.5)
 		bt1 = bouton.Button1(60)
 		bt1.start()

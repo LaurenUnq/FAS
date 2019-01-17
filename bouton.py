@@ -5,6 +5,7 @@ import time
 import grovepi
 
 button1 = 3
+button2 = 6
 grovepi.pinMode(button1,"INPUT")
 
 
@@ -32,9 +33,6 @@ class Button1(Thread):
 		Thread.join(self)
 		return self._return
 
-# bouton validation
-#def validerUneOperation(value):
 
-
-# changer l'affichage sur le lcd
-#def changermessageLCD():
+def etatBt2():
+	return grovepi.digitalRead(button2)

@@ -25,9 +25,9 @@ class Led(Thread):
 
 	def run(self):
 		tf = time.time()
-	  	while time.time()< tf+self.tempsC and self.running == True:
-	  		self.allumerLED(self.vitC)
-	  		self.eteindreLED(self.vitC)
+		while time.time()< tf+self.tempsC and self.running == True:
+			self.allumerLED(self.vitC)
+			self.eteindreLED(self.vitC)
 
 	def stop(self):
 		self.running = False

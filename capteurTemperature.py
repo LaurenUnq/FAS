@@ -1,10 +1,5 @@
 # -*- coding: utf-8 -*
-#Import buzzer
-#Import lcd
-#Import internet
-#import led
-#Import bouton
-#Import alerter
+
 import sys
 from threading import Thread
 import time
@@ -26,9 +21,9 @@ class Rappel(Thread):
 
 	def run(self):
 		buzzer = buzzer.Buzzer(10,0) #on modifiera le 0 plus tard
-		ecran = lcd.Lcd("Hydratez-vous et appuyer sur le bouton bleu!",60)
-		ledr = led.Led(60,0.5)
-		bt1 = bouton.Button1(60)
+		ecran = lcd.Lcd("Hydratez-vous et appuyer sur le bouton bleu!",120)
+		ledr = led.Led(120,0.5)
+		bt1 = bouton.Button1(120)
 		bt1.start()
 		buzzer.start()
 		ecran.start()
@@ -44,50 +39,51 @@ class Rappel(Thread):
   		#buzzer()     #utilisation de la fonction depuis buzzer
   		#arretBuzzer()     #utilisation de la fonction depuis buzzer
 
-  	def join(self):
-  		if self.ret == True:
-  			return 0
-  		else :
-  			return 1
+	def join(self):
+		if self.ret == True:
+			return 0
+		else :
+			return 1
   
 
-def mesurerH():
-	t=0
-	cpt = 0
-	while True:
-		try:
-	        	[temp,humidity] = grovepi.dht(SENSOR,BLUE)
-			print("la temperature est : ", temp)
-	        	if temp>=25 and t==0 :
-	        		t = time.time()
-	        	if temp<25:
-	        		t = 0
-	        		cpt = 0
-	        	if ta.time() > t + 60 and t!=0:
-	        		cpt = cpt + 1
-	        		if cpt == 5 :
-	        			r = Rappel()
-						r.start()
-						r.join()
-	        			if r == False:
-	        				m = message.MailProches("Ce message vous est envoyé car votre proche n'a pas confirmé son hydration")
-							m.start()
-							m.join()
+class MesurerH(Thread):
+	def __init__(self):
+		Thread.__init__(self)
+		self.t=0
+		self.cpt = 0
+		self.temp = 0
+		self.humidity = 0 
+		self.ret = 1
+		self.r = Rappel()
+
+	
+	def run(self):
+		while True:
+			try:
+				[self.temp,self.humidity] = grovepi.dht(SENSOR,BLUE)
+				# si la temperature est superieur ou egale a 25° on stocke l'heure
+				if self.temp>=25 and t==0 :
+					self.t = time.time()
+				# sinon on met l'heure à 0 et le compteur à 0
+				if self.temp<25:
+					self.t = 0
+					self.cpt = 0
 
 
-	        		t=t+5
-	        	time.sleep(3600)
-		except IOError:
-        		print ("Erreur lors de la mesure")
+				if time.time() > self.t + 60 and self.t!=0:
+					self.cpt = self.cpt + 1
+					self.r.start()
+					self.ret = self.r.join()
+					if self.ret == 0:
+						self.t = time.time()
+					else:
+						if self.cpt == 2:
+							message.envoyerMailProches("Ce message vous est envoyé car votre proche n'a pas confirmé son hydration")
+						if self.cpt == 4:
+							message.envoyerMailSecours("Une personne est possiblement en situation de déshydration depuis plus d'une heure! Secours nécessaires.")
+		        # pause de 15 min
+				time.sleep(900)
+			except IOError:
+				print ("Erreur lors de la mesure")
 
 
-#def alerteProcheH():
-  #if (temp >= 25):
-    #alerterProche(msg)
-  
-#def alerterSecoursH():
-
-
-#t = Rappel()
-#t.start()
-#t.join()

@@ -8,7 +8,7 @@ MDP = "Comp3Glf"
 EXPEDITEUR = "compagnie3G@gmail.com"
 
 def envoyerMailProches(text):
-	fichier = open("../../pi/Desktop/adressemail.py","r")
+	fichier = open("/home/pi/Desktop/adressemail.txt","r")
 	DESTINATAIRE = fichier.read()
 
 	message = MIMEMultipart()
@@ -39,7 +39,10 @@ def envoyerMailSecours(text):
 	message['To'] = DESTINATAIRE
 	message['Subject'] = "Alerte demande de secours"
 
-	corp = text
+	fichier = open("/home/pi/Desktop/infosProches.txt","r")
+	infos = fichier.read()
+
+	corp = text + "\n" + infos
 
 	message.attach(MIMEText(corp.encode('utf-8'),'plain','utf-8'))
 

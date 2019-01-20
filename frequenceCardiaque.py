@@ -1,4 +1,5 @@
 import sys
+import requests
 from threading import Thread
 import RPi.GPIO as GPIO
 from grovepi import *
@@ -14,9 +15,9 @@ def analyseFreq(btm):
 
 
 def demanderMesure():
-	l2 = lcd.Lcd("Patientez",30)
+	l2 = lcd.Lcd("Patientez",20)
 	l2.start()
-	res = mesurerFC(30)
+	res = mesurerFC(20)
 	l2.stop()
 	l2.join()
 	message = str(res) + " btm/min"
@@ -38,10 +39,11 @@ def mesurerFC(timeInt): #pin est le pin sur lequel est le capteur, time et le te
 
 		sec = time.time()
 
-	btm = count * (60/timeInt)
+	btm = count * (60/timeInt) - 20
 	print(btm)
 	return btm
 
 def sauvegarderFC(btm): #Mettre dans la bd
 	data = {"entry.1030626618":btm}
 	r = requests.post("https://docs.google.com/forms/d/1IeL0W_QLm2Ql0AfngbanobwUrZ-fFM1BQp2d9MdAR3Y/formResponse?", data = data)
+

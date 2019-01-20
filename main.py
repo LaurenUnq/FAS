@@ -22,7 +22,7 @@ def main():
       if bouton.etatBt2() == 1:
         d = 1
         t = time.time()
-        l = lcd.Lcd("Placer le capteur de frequence cardiaque et appuyer de nouveau sur le bouton",120)
+        l = lcd.Lcd("Placer le capteur de frequence cardiaque et appuyer de nouveau sur le bouton 2",120)
         l.start()
         time.sleep(3)
     if d == 1:
@@ -38,10 +38,12 @@ def main():
 
   #demande de frequence cardiaque quotidienne
     if day != time.strftime("%d") and int(time.strftime("%H")) >= 8:
+      lcd.ecrireMessage("Bonjour",3)
+      lcd.clearEcran()
       day = time.strftime("%d")
       freqQ = False
       while freqQ == False:
-        ecran = lcd.Lcd("C est l heure de prendre votre frequence cardiaque!",60)
+        ecran = lcd.Lcd("C est l heure de prendre votre frequence cardiaque! (appuyer sur le bouton 1)",60)
         buzz = buzzer.Buzzer(10,0) #on modifiera le 0 plus tard
         ledr = led.Led(60,0.5)
         bt1 = bouton.Button1(60)

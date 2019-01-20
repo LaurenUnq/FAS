@@ -19,9 +19,9 @@ class Buzzer(Thread):
     t=time.time()
     while t + self.tempsB > time.time() and self.running == True:
       try:
-        analogWrite(self.buzzer,self.intensite)
-        time.sleep(1)
-        analogWrite(self.buzzer,0)
+        digitalWrite(self.buzzer,150)
+        time.sleep(0.05)
+        digitalWrite(self.buzzer,0)
         time.sleep(1)
       except KeyboardInterrupt:
         analogWrite(self.buzzer,0)
@@ -31,3 +31,4 @@ class Buzzer(Thread):
 
   def stop(self):
       self.running == False
+

@@ -71,11 +71,11 @@ def prise(e1, e2):
       message.envoyerMailProches("Un soucis a été detecté avec la fréquence cardiaque de votre proche. Dans 5 minutes, les secours seront prévenus.")
     if essai == e2:
       message.envoyerMailSecours("Alerte! Un soucis avec la fréquence cardiaque d'une personne à été detecté. Des secours sont nécessaires")
-    #frequenceCardiaque.sauvegarderFC(btm)
+    frequenceCardiaque.sauvegarderFC(btm)
     essai = essai + 1
     lcd.ecrireMessage("Nouvel essai", 5)
     btm = frequenceCardiaque.demanderMesure()
-  #frequenceCardiaque.sauvegarderFC(btm)
+  frequenceCardiaque.sauvegarderFC(btm)
 
 main()
 

@@ -14,7 +14,6 @@ def main():
   lcd.ecrireMessage("Bonjour",3)
   lcd.clearEcran()
   t = capteurTemperature.MesurerH()
-  t.start()
   day = int(time.strftime("%d")) - 1
   while True :
   #demande prise de frequence cardiaque

@@ -39,7 +39,7 @@ def mesurerFC(timeInt): #pin est le pin sur lequel est le capteur, time et le te
 
 		sec = time.time()
 
-	btm = count * (60/timeInt) - 20
+	btm = count * (60/timeInt) 
 	print(btm)
 	return btm
 

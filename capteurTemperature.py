@@ -21,9 +21,9 @@ class Rappel(Thread):
 
 	def run(self):
 		buzz = buzzer.Buzzer(10,0) #on modifiera le 0 plus tard
-		ecran = lcd.Lcd("Hydratez-vous et appuyer sur le bouton 1!",30)
-		ledr = led.Led(30,0.5)
-		bt1 = bouton.Button1(30)
+		ecran = lcd.Lcd("Hydratez-vous et appuyer sur le bouton 1!",20)
+		ledr = led.Led(20,0.5)
+		bt1 = bouton.Button1(20)
 		bt1.start()
 		buzz.start()
 		ecran.start()
@@ -56,14 +56,15 @@ class MesurerH(Thread):
 
 	
 	def run(self):
+		#time.sleep(120)
 		while True:
 			try:
 				[self.temp,self.humidity] = grovepi.dht(SENSOR,BLUE)
 				# si la temperature est superieur ou egale a 25° on stocke l'heure
-				if self.temp>=15 and self.t == 0 :
+				if self.temp>=20 and self.t == 0 :
 					self.t = time.time()
 				# sinon on met l'heure à 0 et le compteur à 0
-				if self.temp<15:
+				if self.temp<20:
 					self.t = 0
 					self.cpt = 0
 
@@ -80,17 +81,21 @@ class MesurerH(Thread):
 						pass
 					if self.ret == 0:
 						self.t = time.time()
+						self.cpt = 0
 					else:
 						if self.cpt == 2:
 							message.envoyerMailProches("Ce message vous est envoye car votre proche n'a pas confirme son hydration")
 						if self.cpt == 4:
-							message.envoyerMailSecours("Une personne est possiblement en situation de déshydration depuis plus d'une heure! Secours nécessaires.")
+							message.envoyerMailSecours("Une personne est possiblement en situation de deshydration depuis plus d'une heure! Secours necessaires.")
 		        # pause de 15 min
 				mess = str(self.temp) + "  degres celsius"
 				ecran = lcd.Lcd(mess,30)
 				ecran.start()
 				ecran.stop()
-				time.sleep(60)
+				time.sleep(30)
 			except IOError:
 				print ("Erreur lors de la mesure")
 
+m = MesurerH()
+m.start()
+m.join()
